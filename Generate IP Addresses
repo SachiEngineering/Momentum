@@ -1,0 +1,86 @@
+'''
+Given a string of digits, generate all possible valid IP address combinations.
+
+IP addresses must follow the format A.B.C.D, where A, B, C, and D are numbers between 0 and 255. Zero-prefixed numbers, such as 01 and 065, are not allowed, except for 0 itself.
+ 
+
+EXAMPLE(S)
+For example, given "2542540123", you should return ['254.25.40.123', '254.254.0.123'].
+ 
+
+FUNCTION SIGNATURE
+func validIPs(input: String) -> [String]
+
+Explore
+-no changing the order
+-numerical inputs
+
+Brainstorm:
+-sections a,b,c,d at most 3 digits in a section (less than255)
+try all the possible values with the given conditions
+add it to a valid example IP address, then I want to try a new value
+
+#Will run the length of numbers in the given string O(numberChar)
+#
+
+#Planning
+#function
+    #backtracking function
+
+        #base case
+
+
+        #Try all the possible values
+
+
+
+    result to return
+    call the backtracking function
+    return result
+
+254 254 012312347654
+
+0.0.0.0
+255.255.255.255
+
+2542540123
+
+
+def bt(index, currPath):
+
+    # Base Case
+    len is 4
+    and index == len(inputStr)
+
+    Figure out decisions:
+    for 1 - 4 (excluisve)
+        develop devision
+        append to currPath
+        backtrack
+        pop from currPath
+
+'''
+
+#function
+def generate_valid_ips(inputStr: str) -> list[str]:
+    #backtracking function
+    def backtrack(beg, path): #beginning and path so far
+        #base case
+        if len(path) == 4:
+            if beg == len(inputStr):
+                result.append('.'.join(path))
+            return
+
+        #Try all the possible values: in the specific segment
+        for length in range(1,4):
+            currSegment = inputStr[beg:beg+length]
+
+            #check if this segment follows the guideline
+            if currSegment and 0 <= int(currSegment) <= 255 and (currSegment[0] != '0' or len(currSegment) == 1):
+                path.append(currSegment)
+                backtrack(beg+length, path)
+                path.pop()
+
+    result = [] # list of combinations
+    backtrack(0, [])    #call the backtracking function
+    return result
